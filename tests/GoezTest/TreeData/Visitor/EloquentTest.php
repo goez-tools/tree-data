@@ -24,27 +24,18 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 {
     private static $_tree = [
         // Level 1
-        ['id' => 1, 'name' => 'Home', 'lft' => 1, 'rgt' => 2, 'tree' => 1],
-        ['id' => 2, 'name' => 'About', 'lft' => 1, 'rgt' => 2, 'tree' => 2],
-        ['id' => 3, 'name' => 'Services', 'lft' => 1, 'rgt' => 14, 'tree' => 3],
-        ['id' => 9, 'name' => 'Contact Us', 'lft' => 1, 'rgt' => 2, 'tree' => 4],
+        ['id' => 1, 'name' => 'Services', 'parent_id' => null, 'level' => 1],
 
         // Level 2
-        ['id' => 4, 'name' => 'Computer Services', 'lft' => 2, 'rgt' => 9, 'tree' => 3],
-        ['id' => 7, 'name' => 'Website Development', 'lft' => 10, 'rgt' => 11, 'tree' => 3],
-        ['id' => 8, 'name' => 'Graphic Design', 'lft' => 12, 'rgt' => 13, 'tree' => 3],
+        ['id' => 2, 'name' => 'Computer Services', 'parent_id' => 1, 'level' => 2],
+        ['id' => 3, 'name' => 'Website Development', 'parent_id' => 1, 'level' => 2],
+        ['id' => 4, 'name' => 'Graphic Design', 'parent_id' => 1, 'level' => 2],
 
         // Level 3
-        ['id' => 5, 'name' => 'Computer Repairs', 'lft' => 3, 'rgt' => 4, 'tree' => 3],
-        ['id' => 6, 'name' => 'Virus Removal', 'lft' => 5, 'rgt' => 6, 'tree' => 3],
-        ['id' => 10, 'name' => 'OS Installation', 'lft' => 7, 'rgt' => 8, 'tree' => 3],
+        ['id' => 5, 'name' => 'Computer Repairs', 'parent_id' => 2, 'level' => 3],
+        ['id' => 6, 'name' => 'Virus Removal', 'parent_id' => 2, 'level' => 3],
+        ['id' => 7, 'name' => 'OS Installation', 'parent_id' => 2, 'level' => 3],
     ];
-
-    public static function setUpBeforeClass()
-    {
-        static::_connectTestDb();
-        static::_truncateStorage();
-    }
 
     protected static function _connectTestDb()
     {
@@ -68,6 +59,17 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         DB::table('nodes')->insert(static::$_tree);
     }
 
+    public static function setUpBeforeClass()
+    {
+        static::_connectTestDb();
+    }
+
+    public function setUp()
+    {
+        static::_truncateStorage();
+        static::_seedTestData();
+    }
+
     public function rootProvider()
     {
         return array(
@@ -76,6 +78,11 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
             array('Services'),
             array('Contact Us'),
         );
+    }
+
+    public function testInsertNodeAsRoot()
+    {
+
     }
 
 }
