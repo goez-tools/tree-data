@@ -18,8 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  * @package    Goez
  * @license    MIT License
  *
- * @property int $lft
- * @property int $rgt
+ * @property int $id
+ * @property int $parent_id
+ * @property int $level
  * @property int $tree
  */
 class Eloquent extends Model

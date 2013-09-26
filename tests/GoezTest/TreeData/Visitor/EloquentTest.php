@@ -3,7 +3,7 @@ namespace GoezTest\TreeData\Visitor;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Capsule\Manager as DB;
-use Goez\NestedSets\NestedSets;
+use Goez\TreeData\Tree;
 
 class Menu extends Eloquent
 {
