@@ -143,7 +143,11 @@ class Eloquent extends Model
      */
     public function parents()
     {
-        $models = $this->getTreeByLevel($this->level - 1, false);
+        $models = $this->getTreeByLevel(array(
+            'level' => $this->level - 1,
+            'direction' => 'up',
+            'levelOrder' => 'desc',
+        ));
 
         $collection = new Collection();
         $current = $this;
@@ -160,24 +164,34 @@ class Eloquent extends Model
     }
 
     /**
-     * @param int $level
-     * @param bool $levelOrderByAsc
+     * @param array $options
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getTreeByLevel($level = null, $levelOrderByAsc = true)
+    public function getTreeByLevel($options)
     {
+        $options = array_merge(array(
+            'level' => null,
+            'direction' => null,
+            'levelOrder' => 'asc',
+        ), $options);
+
         $query = $this->where('tree', $this->tree);
 
-        if (is_int($level)) {
-            $query->where('level', '<=', $level);
+        if (is_int($options['level'])) {
+            switch ($options['direction']) {
+                case 'up':
+                    $query->where('level', '<=', $options['level']);
+                    break;
+                case 'down':
+                    $query->where('level', '>=', $options['level']);
+                    break;
+                default:
+                    $query->where('level', $options['level']);
+                    break;
+            }
         }
 
-        if ($levelOrderByAsc) {
-            $query->orderBy('level');
-        } else {
-            $query->orderBy('level', 'desc');
-        }
-
+        $query->orderBy('level', strtolower($options['levelOrder']));
         return $query->get();
     }
 }
