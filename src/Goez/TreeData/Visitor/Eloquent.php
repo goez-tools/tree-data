@@ -9,8 +9,9 @@
 
 namespace Goez\TreeData\Visitor;
 
-use Illuminate\Database\Query\Expression;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Expression;
 
 /**
  * Eloquent Model Adapter of Node
@@ -71,6 +72,7 @@ class Eloquent extends Model
         static $allowMethods = array(
             'children',
             'parent',
+            'parents',
         );
 
         if (in_array($name, $allowMethods)) {
@@ -134,5 +136,48 @@ class Eloquent extends Model
         return $this->where('id', $this->parent_id)
             ->first()
             ->tree();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function parents()
+    {
+        $models = $this->getTreeByLevel($this->level - 1, false);
+
+        $collection = new Collection();
+        $current = $this;
+        foreach ($models as $model) {
+            if ((int) $model->id === (int) $current->parent_id) {
+                $collection->put($model->id, $model);
+                $current = $model;
+            }
+        }
+        $models = null;
+        unset($models);
+
+        return $collection->reverse();
+    }
+
+    /**
+     * @param int $level
+     * @param bool $levelOrderByAsc
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getTreeByLevel($level = null, $levelOrderByAsc = true)
+    {
+        $query = $this->where('tree', $this->tree);
+
+        if (is_int($level)) {
+            $query->where('level', '<=', $level);
+        }
+
+        if ($levelOrderByAsc) {
+            $query->orderBy('level');
+        } else {
+            $query->orderBy('level', 'desc');
+        }
+
+        return $query->get();
     }
 }
