@@ -68,6 +68,14 @@ class Eloquent extends Model
      */
     public function __get($name)
     {
+        static $allowMethods = array(
+            'children',
+        );
+
+        if (in_array($name, $allowMethods)) {
+            return call_user_func(array($this, $name));
+        }
+
         return $this->_object->__get($name);
     }
 
@@ -95,11 +103,11 @@ class Eloquent extends Model
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function children()
     {
-        return $this->_children = $this->_object
+        return $this->_object
             ->hasMany(get_class($this->_object), 'parent_id')
             ->getResults();
     }
@@ -114,6 +122,6 @@ class Eloquent extends Model
         $node->tree = $this->tree;
         $node->save();
 
-        $this->_children->put($node->id, $node);
+        $this->children->put($node->id, $node);
     }
 }

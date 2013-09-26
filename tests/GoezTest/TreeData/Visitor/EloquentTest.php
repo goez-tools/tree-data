@@ -95,7 +95,7 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
     public function testInsertNodeAsChild()
     {
         $node = Menu::where('name', 'Website Development')->first()->tree();
-        $children = $node->children();
+        $children = $node->children;
         $this->assertEquals(0, count($children));
         $this->assertInstanceOf('\Illuminate\Database\Eloquent\Collection', $children);
 
@@ -103,7 +103,7 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $node->addChild(new Menu(array('name' => 'CSS')));
         $node->addChild(new Menu(array('name' => 'JavaScript')));
 
-        $children = $node->children();
+        $children = $node->children;
         $this->assertEquals(3, count($children));
     }
 
