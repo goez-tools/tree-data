@@ -105,6 +105,22 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
         $children = $node->children;
         $this->assertEquals(3, count($children));
+
+        $child1 = $children->find(8);
+        $child2 = $children->find(9);
+        $child3 = $children->find(10);
+
+        $this->assertEquals(1, $child1->tree);
+        $this->assertEquals(1, $child2->tree);
+        $this->assertEquals(1, $child3->tree);
+
+        $this->assertEquals(3, $child1->parent_id);
+        $this->assertEquals(3, $child2->parent_id);
+        $this->assertEquals(3, $child3->parent_id);
+
+        $this->assertEquals(3, $child1->level);
+        $this->assertEquals(3, $child2->level);
+        $this->assertEquals(3, $child3->level);
     }
 
     // 1. 要可以從目前節點去呈現 breadcrumbs 。 (往上找 N 層直到 root)
