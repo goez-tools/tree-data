@@ -116,16 +116,24 @@ class Eloquent extends Model
     }
 
     /**
-     * @param Model $node
+     * @param \Illuminate\Database\Eloquent\Model $node
      */
     public function addChild(Model $node)
+    {
+        $this->children->put($node->id, $node);
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Model $node
+     */
+    public function addChildForcibly(Model $node)
     {
         $node->parent_id = $this->id;
         $node->level = $this->level + 1;
         $node->tree = $this->tree;
         $node->save();
 
-        $this->children->put($node->id, $node);
+        $this->addChild($node);
     }
 
     /**

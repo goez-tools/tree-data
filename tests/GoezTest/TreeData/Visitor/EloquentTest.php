@@ -99,9 +99,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($children));
         $this->assertInstanceOf('\Illuminate\Database\Eloquent\Collection', $children);
 
-        $node->addChild(new Menu(array('name' => 'HTML')));
-        $node->addChild(new Menu(array('name' => 'CSS')));
-        $node->addChild(new Menu(array('name' => 'JavaScript')));
+        $node->addChildForcibly(new Menu(array('name' => 'HTML')));
+        $node->addChildForcibly(new Menu(array('name' => 'CSS')));
+        $node->addChildForcibly(new Menu(array('name' => 'JavaScript')));
 
         $children = $node->children;
         $this->assertEquals(3, count($children));
