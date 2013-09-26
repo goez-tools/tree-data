@@ -31,6 +31,11 @@ class Eloquent extends Model
     protected $_object = null;
 
     /**
+     * @var \Illuminate\Database\Eloquent\Collection
+     */
+    protected $_children = null;
+
+    /**
      * @param \Illuminate\Database\Eloquent\Model $object
      */
     public function __construct(Model $object)
@@ -89,4 +94,26 @@ class Eloquent extends Model
         return (null === $this->_object->parent_id);
     }
 
+    /**
+     * @return mixed
+     */
+    public function children()
+    {
+        return $this->_children = $this->_object
+            ->hasMany(get_class($this->_object), 'parent_id')
+            ->getResults();
+    }
+
+    /**
+     * @param Model $node
+     */
+    public function addChild(Model $node)
+    {
+        $node->parent_id = $this->id;
+        $node->level = $this->level + 1;
+        $node->tree = $this->tree;
+        $node->save();
+
+        $this->_children->put($node->id, $node);
+    }
 }

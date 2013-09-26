@@ -92,8 +92,19 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($node->isRoot());
     }
 
+    public function testInsertNodeAsChild()
     {
+        $node = Menu::where('name', 'Website Development')->first()->tree();
+        $children = $node->children();
+        $this->assertEquals(0, count($children));
+        $this->assertInstanceOf('\Illuminate\Database\Eloquent\Collection', $children);
 
+        $node->addChild(new Menu(array('name' => 'HTML')));
+        $node->addChild(new Menu(array('name' => 'CSS')));
+        $node->addChild(new Menu(array('name' => 'JavaScript')));
+
+        $children = $node->children();
+        $this->assertEquals(3, count($children));
     }
 
 }
