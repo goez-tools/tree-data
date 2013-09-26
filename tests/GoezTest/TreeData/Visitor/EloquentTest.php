@@ -123,6 +123,14 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $child3->level);
     }
 
+    public function testGetParent()
+    {
+        $node = Menu::where('name', 'Computer Repairs')->first()->tree();
+        $parent = $node->parent;
+
+        $this->assertEquals('Computer Services', $parent->name);
+    }
+
     // 1. 要可以從目前節點去呈現 breadcrumbs 。 (往上找 N 層直到 root)
     // 2. 目前節點可以用一個 query 找出 path 。 (往上找 N 層直到 root)
     // 3. 可以從目前節點往下找出一層屬於該節點的子節點。 (顯示子樹)

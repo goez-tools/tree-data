@@ -70,6 +70,7 @@ class Eloquent extends Model
     {
         static $allowMethods = array(
             'children',
+            'parent',
         );
 
         if (in_array($name, $allowMethods)) {
@@ -123,5 +124,15 @@ class Eloquent extends Model
         $node->save();
 
         $this->children->put($node->id, $node);
+    }
+
+    /**
+     * @return \Goez\TreeData\Visitor\Eloquent
+     */
+    public function parent()
+    {
+        return $this->where('id', $this->parent_id)
+            ->first()
+            ->tree();
     }
 }
