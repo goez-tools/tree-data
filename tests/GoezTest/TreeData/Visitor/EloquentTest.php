@@ -24,17 +24,17 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 {
     private static $_tree = [
         // Level 1
-        ['id' => 1, 'name' => 'Services', 'parent_id' => null, 'level' => 1],
+        ['id' => 1, 'name' => 'Services', 'parent_id' => null, 'level' => 1, 'tree' => 1],
 
         // Level 2
-        ['id' => 2, 'name' => 'Computer Services', 'parent_id' => 1, 'level' => 2],
-        ['id' => 3, 'name' => 'Website Development', 'parent_id' => 1, 'level' => 2],
-        ['id' => 4, 'name' => 'Graphic Design', 'parent_id' => 1, 'level' => 2],
+        ['id' => 2, 'name' => 'Computer Services', 'parent_id' => 1, 'level' => 2, 'tree' => 1],
+        ['id' => 3, 'name' => 'Website Development', 'parent_id' => 1, 'level' => 2, 'tree' => 1],
+        ['id' => 4, 'name' => 'Graphic Design', 'parent_id' => 1, 'level' => 2, 'tree' => 1],
 
         // Level 3
-        ['id' => 5, 'name' => 'Computer Repairs', 'parent_id' => 2, 'level' => 3],
-        ['id' => 6, 'name' => 'Virus Removal', 'parent_id' => 2, 'level' => 3],
-        ['id' => 7, 'name' => 'OS Installation', 'parent_id' => 2, 'level' => 3],
+        ['id' => 5, 'name' => 'Computer Repairs', 'parent_id' => 2, 'level' => 3, 'tree' => 1],
+        ['id' => 6, 'name' => 'Virus Removal', 'parent_id' => 2, 'level' => 3, 'tree' => 1],
+        ['id' => 7, 'name' => 'OS Installation', 'parent_id' => 2, 'level' => 3, 'tree' => 1],
     ];
 
     protected static function _connectTestDb()
