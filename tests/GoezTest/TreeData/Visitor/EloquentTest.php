@@ -1,5 +1,5 @@
 <?php
-namespace GoezTest\TreeData\Visitor;
+namespace GoezTest\TreeData;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Capsule\Manager as DB;
