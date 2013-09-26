@@ -66,4 +66,27 @@ class Eloquent extends Model
         return $this->_object->__get($name);
     }
 
+    /**
+     * @return \Goez\TreeData\Visitor\Eloquent
+     */
+    public function asRoot()
+    {
+        $this->_object->level = 1;
+        $this->_object->parent_id = null;
+        $this->_object->save();
+
+        $this->_object->tree = $this->_object->{$this->_object->primaryKey};
+        $this->_object->save();
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRoot()
+    {
+        return (null === $this->_object->parent_id);
+    }
+
 }

@@ -75,12 +75,23 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         return array(
             array('Home'),
             array('About'),
-            array('Services'),
             array('Contact Us'),
         );
     }
 
-    public function testInsertNodeAsRoot()
+    /**
+     * @dataProvider rootProvider
+     */
+    public function testInsertNodeAsRoot($name)
+    {
+        $node = (new Menu(array(
+            'name' => $name,
+        )))->tree();
+        $node->asRoot();
+
+        $this->assertTrue($node->isRoot());
+    }
+
     {
 
     }
