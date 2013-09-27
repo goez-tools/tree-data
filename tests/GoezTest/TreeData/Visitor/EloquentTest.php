@@ -61,7 +61,8 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     protected static function _getMenuByName($name)
     {
-        return Menu::where('name', $name)->first()->tree();
+        $node = Menu::where('name', $name)->first();
+        return $node ? $node->tree() : $node;
     }
 
     public static function setUpBeforeClass()
