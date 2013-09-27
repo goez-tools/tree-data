@@ -59,6 +59,11 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         DB::table('nodes')->insert(static::$_tree);
     }
 
+    protected static function _getMenuByName($name)
+    {
+        return Menu::where('name', $name)->first()->tree();
+    }
+
     public static function setUpBeforeClass()
     {
         static::_connectTestDb();
@@ -94,7 +99,7 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     public function testInsertNodeAsChild()
     {
-        $node = Menu::where('name', 'Website Development')->first()->tree();
+        $node = static::_getMenuByName('Website Development');
         $children = $node->children;
         $this->assertEquals(0, count($children));
         $this->assertInstanceOf('\Illuminate\Database\Eloquent\Collection', $children);
@@ -125,7 +130,7 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     public function testGetParent()
     {
-        $node = Menu::where('name', 'Computer Repairs')->first()->tree();
+        $node = static::_getMenuByName('Computer Repairs');
         $parent = $node->parent;
 
         $this->assertEquals('Computer Services', $parent->name);
@@ -133,7 +138,7 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     public function testGetParents()
     {
-        $node = Menu::where('name', 'Computer Repairs')->first()->tree();
+        $node = static::_getMenuByName('Computer Repairs');
         $parents = $node->parents;
 
         $this->assertCount(2, $parents);
