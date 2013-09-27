@@ -32,6 +32,11 @@ class Eloquent extends Model
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
+    protected $_parent = null;
+
+    /**
+     * @var \Illuminate\Database\Eloquent\Model
+     */
     protected $_object = null;
 
     /**
@@ -139,9 +144,10 @@ class Eloquent extends Model
      */
     public function parent()
     {
-        return $this->where('id', $this->parent_id)
-            ->first()
-            ->tree();
+        return $this->_parent
+            ?: $this->_parent = $this->where('id', $this->parent_id)
+                                    ->first()
+                                    ->tree();
     }
 
     /**
