@@ -207,6 +207,9 @@ class Eloquent extends Model
         return $query->get();
     }
 
+    /**
+     * @return bool
+     */
     public function delete()
     {
         $children = $this->children;
@@ -217,13 +220,17 @@ class Eloquent extends Model
             });
         }
 
-        $this->_object->delete();
+        return $this->_object->delete();
     }
 
+    /**
+     * @return \Goez\TreeData\Visitor\Eloquent
+     */
     public function levelUp()
     {
         $this->_object->level -= 1;
         $this->_object->parent_id = $this->_object->tree()->parent->parent_id;
         $this->_object->save();
+        return $this;
     }
 }
