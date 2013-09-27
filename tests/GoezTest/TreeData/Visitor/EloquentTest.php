@@ -163,5 +163,21 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
     }
 
     // 6. 可找出任意 level 的節點群。 (撈第 N 層的所有節點)
+    public function testRemoveNodeButKeepChildren()
+    {
+        $node = static::_getMenuByName('Computer Services');
+        $node->delete();
 
+        $child1 = static::_getMenuByName('Computer Repairs');
+        $child2 = static::_getMenuByName('Virus Removal');
+        $child3 = static::_getMenuByName('OS Installation');
+
+        $this->assertEquals(1, (int) $child1->parent_id);
+        $this->assertEquals(1, (int) $child2->parent_id);
+        $this->assertEquals(1, (int) $child3->parent_id);
+
+        $this->assertEquals(2, (int) $child1->level);
+        $this->assertEquals(2, (int) $child2->level);
+        $this->assertEquals(2, (int) $child3->level);
+    }
 }

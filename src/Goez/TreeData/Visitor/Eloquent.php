@@ -209,6 +209,21 @@ class Eloquent extends Model
 
     public function delete()
     {
+        $children = $this->children;
+
+        if (count($children)) {
+            $children->each(function ($child) {
+                $child->tree()->levelUp();
+            });
+        }
+
         $this->_object->delete();
+    }
+
+    public function levelUp()
+    {
+        $this->_object->level -= 1;
+        $this->_object->parent_id = $this->_object->tree()->parent->parent_id;
+        $this->_object->save();
     }
 }
