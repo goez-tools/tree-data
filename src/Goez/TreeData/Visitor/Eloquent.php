@@ -233,4 +233,20 @@ class Eloquent extends Model
         $this->_object->save();
         return $this;
     }
+
+    /**
+     * @return bool
+     */
+    public function deleteWithChildren()
+    {
+        $children = $this->children;
+
+        if (count($children)) {
+            $children->each(function ($child) {
+                $child->tree()->delete();
+            });
+        }
+
+        return $this->_object->delete();
+    }
 }

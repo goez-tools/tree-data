@@ -174,4 +174,18 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, (int) $child2->level);
         $this->assertEquals(2, (int) $child3->level);
     }
+
+    public function testRemoveNodeWithChildren()
+    {
+        $node = static::_getMenuByName('Computer Services');
+        $node->deleteWithChildren();
+
+        $child1 = static::_getMenuByName('Computer Repairs');
+        $child2 = static::_getMenuByName('Virus Removal');
+        $child3 = static::_getMenuByName('OS Installation');
+
+        $this->assertNull($child1);
+        $this->assertNull($child2);
+        $this->assertNull($child3);
+    }
 }
