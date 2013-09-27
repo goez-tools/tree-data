@@ -23,6 +23,9 @@ use Illuminate\Database\Query\Expression;
  * @property int $parent_id
  * @property int $level
  * @property int $tree
+ * @property \Illuminate\Database\Eloquent\Collection $children
+ * @property \Illuminate\Database\Eloquent\Collection $parents
+ * @property \Illuminate\Database\Eloquent\Model $parent
  */
 class Eloquent extends Model
 {
@@ -30,11 +33,6 @@ class Eloquent extends Model
      * @var \Illuminate\Database\Eloquent\Model
      */
     protected $_object = null;
-
-    /**
-     * @var \Illuminate\Database\Eloquent\Collection
-     */
-    protected $_children = null;
 
     /**
      * @param \Illuminate\Database\Eloquent\Model $object
