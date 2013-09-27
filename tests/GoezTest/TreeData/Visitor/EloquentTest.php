@@ -148,11 +148,6 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Computer Services', $parents->shift()->name);
     }
 
-    // 1. 要可以從目前節點去呈現 breadcrumbs 。 (往上找 N 層直到 root)
-    // 2. 目前節點可以用一個 query 找出 path 。 (往上找 N 層直到 root)
-    // 3. 可以從目前節點往下找出一層屬於該節點的子節點。 (顯示子樹)
-    // 4. 新增節點時， query 數及影響的 row 應儘可能地少，並計算出該節點 level 。
-    // 5. 刪除節點時，若有子節點的話，子節點應附加在上一層節點。 (調整樹的平衡)
     public function testRemoveLeafNode()
     {
         $node = static::_getMenuByName('Computer Repairs');
@@ -162,7 +157,6 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     }
 
-    // 6. 可找出任意 level 的節點群。 (撈第 N 層的所有節點)
     public function testRemoveNodeButKeepChildren()
     {
         $node = static::_getMenuByName('Computer Services');
