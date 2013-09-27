@@ -153,6 +153,15 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
     // 3. 可以從目前節點往下找出一層屬於該節點的子節點。 (顯示子樹)
     // 4. 新增節點時， query 數及影響的 row 應儘可能地少，並計算出該節點 level 。
     // 5. 刪除節點時，若有子節點的話，子節點應附加在上一層節點。 (調整樹的平衡)
+    public function testRemoveLeafNode()
+    {
+        $node = static::_getMenuByName('Computer Repairs');
+        $node->delete();
+        $node = static::_getMenuByName('Computer Repairs');
+        $this->assertNull($node);
+
+    }
+
     // 6. 可找出任意 level 的節點群。 (撈第 N 層的所有節點)
 
 }

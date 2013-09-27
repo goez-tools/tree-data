@@ -200,4 +200,9 @@ class Eloquent extends Model
         $query->orderBy('level', strtolower($options['levelOrder']));
         return $query->get();
     }
+
+    public function delete()
+    {
+        $this->_object->delete();
+    }
 }
