@@ -76,6 +76,7 @@ class Eloquent extends Model
             'children',
             'parent',
             'parents',
+            'root',
         );
 
         if (in_array($name, $allowMethods)) {
@@ -173,6 +174,14 @@ class Eloquent extends Model
         unset($models);
 
         return $collection->reverse();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function root()
+    {
+        return $this->parents->shift();
     }
 
     /**

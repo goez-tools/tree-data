@@ -148,6 +148,14 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Computer Services', $parents->shift()->name);
     }
 
+    public function testGetRoot()
+    {
+        $node = static::_getMenuByName('Computer Repairs');
+        $root = $node->root;
+
+        $this->assertEquals('Services', $root->name);
+    }
+
     public function testRemoveLeafNode()
     {
         $node = static::_getMenuByName('Computer Repairs');
