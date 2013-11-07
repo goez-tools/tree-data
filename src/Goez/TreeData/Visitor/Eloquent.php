@@ -11,7 +11,6 @@ namespace Goez\TreeData\Visitor;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Expression;
 
 /**
  * Eloquent Model Adapter of Node
@@ -48,8 +47,8 @@ class Eloquent extends Model
     }
 
     /**
-     * @param string $method
-     * @param array $arguments
+     * @param  string $method
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call($method, $arguments)
@@ -59,7 +58,7 @@ class Eloquent extends Model
 
     /**
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($name, $value)
     {
@@ -67,7 +66,7 @@ class Eloquent extends Model
     }
 
     /**
-     * @param string $name
+     * @param  string $name
      * @return mixed
      */
     public function __get($name)
@@ -185,7 +184,7 @@ class Eloquent extends Model
     }
 
     /**
-     * @param array $options
+     * @param  array                                    $options
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public function getTreeByLevel($options)
@@ -213,6 +212,7 @@ class Eloquent extends Model
         }
 
         $query->orderBy('level', strtolower($options['levelOrder']));
+
         return $query->get();
     }
 
@@ -240,6 +240,7 @@ class Eloquent extends Model
         $this->_object->level -= 1;
         $this->_object->parent_id = $this->_object->tree()->parent->parent_id;
         $this->_object->save();
+
         return $this;
     }
 
