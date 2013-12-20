@@ -92,6 +92,7 @@ class Eloquent extends Model
     {
         $this->_object->level = 1;
         $this->_object->parent_id = null;
+        $this->_object->tree = null;
         $this->_object->save();
 
         $this->_object->tree = $this->_object->{$this->_object->primaryKey};
