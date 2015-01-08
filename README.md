@@ -26,10 +26,6 @@ Goez/TreeData is designed for Laravel 4.2+, just follow the steps below:
 
     class Menu extends Eloquent
     {
-        protected $table = 'nodes';
-        public $timestamps = false;
-        protected $guarded = array();
-
         /**
          * @return \Goez\TreeData\Visitor\Eloquent
          */
