@@ -10,24 +10,19 @@ PHP 5.4+
 
 ## Installation
 
-you can use it in any PHP project with composer:
-
-```bash
-composer require goez/tree-data
-```
-
-### Laravel 4
-
 Goez/TreeData was designed for Laravel 4.2+, just follow the steps below:
 
 1. Install from composer.
+
+    ```bash
+    composer require goez/tree-data
+    ```
 
 2. Add `tree` method in your eloquant model:
 
     ```php
     use Goez\TreeData\Tree;
     use Illuminate\Database\Eloquent\Model as Eloquent;
-    use Illuminate\Database\Schema\Blueprint as Table;
 
     class Menu extends Eloquent
     {
@@ -45,7 +40,7 @@ Goez/TreeData was designed for Laravel 4.2+, just follow the steps below:
     }
     ```
 
-## Example
+## Examples
 
 Find examples in `tests` folder.
 
