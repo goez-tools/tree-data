@@ -36,7 +36,7 @@ Goez/TreeData was designed for Laravel 4.2+, just follow the steps below:
         protected $guarded = array();
 
         /**
-         * @return \Goez\NestedSets\Visitor\Eloquent
+         * @return \Goez\TreeData\Visitor\Eloquent
          */
         public function tree()
         {
@@ -47,7 +47,7 @@ Goez/TreeData was designed for Laravel 4.2+, just follow the steps below:
 
 ## Example
 
-Find examples in `tests` folder, please.
+Find examples in `tests` folder.
 
 ## License
 

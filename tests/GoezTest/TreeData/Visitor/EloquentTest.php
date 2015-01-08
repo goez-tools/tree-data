@@ -12,7 +12,7 @@ class Menu extends Eloquent
     protected $guarded = array();
 
     /**
-     * @return \Goez\NestedSets\Visitor\Eloquent
+     * @return \Goez\TreeData\Visitor\Eloquent
      */
     public function tree()
     {
