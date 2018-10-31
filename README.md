@@ -1,6 +1,6 @@
 # Adjacency List model for Laravel 4
 
-[![Build Status](https://travis-ci.org/jaceju/goez-tree-data.svg)](https://travis-ci.org/jaceju/goez-tree-data) [![Code Climate](https://codeclimate.com/github/jaceju/goez-tree-data/badges/gpa.svg)](https://codeclimate.com/github/jaceju/goez-tree-data) [![Test Coverage](https://codeclimate.com/github/jaceju/goez-tree-data/badges/coverage.svg)](https://codeclimate.com/github/jaceju/goez-tree-data)
+[![Build Status](https://travis-ci.org/goez-tools/tree-data.svg?branch=master)](https://travis-ci.org/goez-tools/tree-data) [![Code Climate](https://codeclimate.com/github/jaceju/goez-tree-data/badges/gpa.svg)](https://codeclimate.com/github/jaceju/goez-tree-data) [![Test Coverage](https://codeclimate.com/github/jaceju/goez-tree-data/badges/coverage.svg)](https://codeclimate.com/github/jaceju/goez-tree-data)
 
 Goez/TreeData is an adjacency list visitor for eloquant model.
 
