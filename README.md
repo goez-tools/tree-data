@@ -4,10 +4,6 @@
 
 Goez/TreeData is an adjacency list visitor for Eloquent model.
 
-## Requirement
-
-PHP 5.4+
-
 ## Usage
 
 Goez/TreeData is designed for Laravel 4.2+, just follow the steps below:
