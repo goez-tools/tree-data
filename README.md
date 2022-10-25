@@ -1,6 +1,6 @@
 # Adjacency List model for Laravel Eloquent
 
-[![Build Status](https://github.com/goez-tools/tree-data/actions/workflows/php.yml/badge.svg)
+![Build Status](https://github.com/goez-tools/tree-data/actions/workflows/php.yml/badge.svg)
 
 Goez/TreeData is an adjacency list visitor for Eloquent model.
 
