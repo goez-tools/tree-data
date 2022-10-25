@@ -1,5 +1,5 @@
 <?php
-namespace GoezTest\TreeData;
+namespace GoezTest\TreeData\Visitor;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Capsule\Manager as DB;
@@ -20,7 +20,7 @@ class Menu extends Eloquent
     }
 }
 
-class EloquentTest extends \PHPUnit_Framework_TestCase
+class EloquentTest extends \PHPUnit\Framework\TestCase
 {
     private static $_tree = [
         // Level 1
@@ -66,12 +66,12 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         return $node ? $node->tree() : $node;
     }
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         static::_connectTestDb();
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         static::_truncateStorage();
         static::_seedTestData();
@@ -88,6 +88,8 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider rootProvider
+     * @covers \Goez\TreeData\Visitor\Eloquent::asRoot
+     * @covers \Goez\TreeData\Visitor\Eloquent::isRoot
      */
     public function testInsertNodeAsRoot($name)
     {
@@ -99,11 +101,14 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($node->isRoot());
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::addChild
+     */
     public function testInsertNodeAsChild()
     {
         $node = static::_getMenuByName('Website Development');
         $children = $node->children;
-        $this->assertEquals(0, count($children));
+        $this->assertCount(0, $children);
         $this->assertInstanceOf('\Illuminate\Database\Eloquent\Collection', $children);
 
         $node->addChildForcibly(new Menu(array('name' => 'HTML')));
@@ -111,7 +116,7 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $node->addChildForcibly(new Menu(array('name' => 'JavaScript')));
 
         $children = $node->children;
-        $this->assertEquals(3, count($children));
+        $this->assertCount(3, $children);
 
         $child1 = $children->find(8);
         $child2 = $children->find(9);
@@ -130,6 +135,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3, $child3->level);
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::__get
+     */
     public function testGetParent()
     {
         $node = static::_getMenuByName('Computer Repairs');
@@ -138,6 +146,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Computer Services', $parent->name);
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::__get
+     */
     public function testGetParents()
     {
         $node = static::_getMenuByName('Computer Repairs');
@@ -149,6 +160,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Computer Services', $parents->shift()->name);
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::__get
+     */
     public function testGetRoot()
     {
         $node = static::_getMenuByName('Computer Repairs');
@@ -157,6 +171,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Services', $root->name);
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::delete
+     */
     public function testRemoveLeafNode()
     {
         $node = static::_getMenuByName('Computer Repairs');
@@ -166,6 +183,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::delete
+     */
     public function testRemoveNodeButKeepChildren()
     {
         $node = static::_getMenuByName('Computer Services');
@@ -184,6 +204,9 @@ class EloquentTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, (int) $child3->level);
     }
 
+    /**
+     * @covers \Goez\TreeData\Visitor\Eloquent::deleteWithChildren
+     */
     public function testRemoveNodeWithChildren()
     {
         $node = static::_getMenuByName('Computer Services');
