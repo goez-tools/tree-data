@@ -1,5 +1,5 @@
 <?php
-namespace GoezTest\TreeData;
+namespace GoezTest\TreeData\Visitor;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Capsule\Manager as DB;
@@ -20,7 +20,7 @@ class Menu extends Eloquent
     }
 }
 
-class EloquentTest extends \PHPUnit_Framework_TestCase
+class EloquentTest extends \PHPUnit\Framework\TestCase
 {
     private static $_tree = [
         // Level 1

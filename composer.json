@@ -17,9 +17,8 @@
         "phpunit/phpunit": "8.*|9.*"
     },
     "autoload": {
-        "psr-0": {
-            "Goez\\TreeData": "src/",
-            "GoezTest\\TreeData": "tests/"
+        "psr-4": {
+            "Goez\\TreeData\\": "src/"
         }
     },
     "minimum-stability": "stable"
