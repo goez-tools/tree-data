@@ -21,5 +21,10 @@
             "Goez\\TreeData\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GoezTest\\": "tests/"
+        }
+    },
     "minimum-stability": "stable"
 }
