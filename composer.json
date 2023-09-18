@@ -9,11 +9,11 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.4",
-        "illuminate/support": ">=6.5 <10",
-        "illuminate/database": ">=6.5 <10"
+        "php": ">=7.4"
     },
     "require-dev": {
+        "illuminate/support": ">=5.4 <=10",
+        "illuminate/database": ">=5.4 <=10",
         "phpunit/phpunit": "8.*|9.*"
     },
     "autoload": {
